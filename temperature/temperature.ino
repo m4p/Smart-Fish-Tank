@@ -20,20 +20,16 @@ OneWire oneWire(oneWireBus);
 // Pass our oneWire reference to Dallas Temperature sensor
 DallasTemperature sensors(&oneWire);
 
-void connectToWifi() {
+void setup() {
+  Serial.begin(115200);
+  delay(4000);
+
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.println("Connecting to WiFi..");
   }
   Serial.println("Connected to the WiFi network");
-}
-
-void setup() {
-  Serial.begin(115200);
-  delay(4000);
-
-  connectToWifi();
 
   sensors.begin();
 }
@@ -57,7 +53,7 @@ void loop() {
     delay(30000);
 
   } else {
-    connectToWifi();
+    ESP.restart();
   }
 
 
